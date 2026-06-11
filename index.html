@@ -8,799 +8,1150 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root,[data-theme="light"]{--color-bg:#f8f7f4;--color-surface:#ffffff;--color-surface-2:#f3f1ed;--color-surface-offset:#eae7e1;--color-border:#dcd8d0;--color-divider:#e8e4de;--color-text:#1a1a2e;--color-text-muted:#5a5870;--color-text-faint:#9896a8;--color-text-inverse:#ffffff;--color-primary:#2C5697;--color-primary-hover:#1e3d6e;--color-primary-active:#152d52;--color-primary-light:#e8edf5;--color-accent:#F5A800;--color-accent-hover:#d48f00;--color-accent-light:#fef6e0;--color-success:#2d7a4f;--color-error:#c0392b;--font-display:'Playfair Display',Georgia,serif;--font-body:'Source Sans 3','Helvetica Neue',sans-serif;--text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);--text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);--text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);--text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);--text-3xl:clamp(2.5rem,1rem + 4vw,4.5rem);--space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;--space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;--space-20:5rem;--radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;--radius-xl:1rem;--radius-2xl:1.5rem;--radius-full:9999px;--shadow-sm:0 1px 3px rgba(44,86,151,0.08);--shadow-md:0 4px 16px rgba(44,86,151,0.10);--shadow-lg:0 12px 40px rgba(44,86,151,0.13);--transition:180ms cubic-bezier(0.16,1,0.3,1);--content-narrow:640px;--content-default:960px;--content-wide:1200px}
-[data-theme="dark"]{--color-bg:#0f1117;--color-surface:#171a23;--color-surface-2:#1e2130;--color-surface-offset:#252840;--color-border:#2e3148;--color-divider:#252840;--color-text:#e8e6f0;--color-text-muted:#9896b8;--color-text-faint:#5a5870;--color-text-inverse:#0f1117;--color-primary:#6b93d6;--color-primary-hover:#8aaede;--color-primary-active:#a8c3e8;--color-primary-light:#1a2340;--color-accent:#F5A800;--color-accent-hover:#ffc233;--color-accent-light:#2a2000;--shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 16px rgba(0,0,0,0.4);--shadow-lg:0 12px 40px rgba(0,0,0,0.5)}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:5rem}
-body{min-height:100dvh;line-height:1.6;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background-color:var(--color-bg);transition:background-color var(--transition),color var(--transition)}
-img,picture,video,canvas,svg{display:block;max-width:100%;height:auto}
-ul[role="list"],ol[role="list"]{list-style:none}
-input,button,textarea,select{font:inherit;color:inherit}
-h1,h2,h3,h4,h5,h6{text-wrap:balance;line-height:1.15;font-family:var(--font-display)}
-p,li,figcaption{text-wrap:pretty;max-width:72ch}
-::selection{background:rgba(44,86,151,0.18);color:var(--color-text)}
-:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-button{cursor:pointer;background:none;border:none}
-a,button,[role="button"]{transition:color var(--transition),background var(--transition),border-color var(--transition),box-shadow var(--transition)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+/* ===== DESIGN TOKENS ===== */
+:root {
+  /* Javeriana Institucional */
+  --jav-azul:       #2C5697;
+  --jav-azul-dark:  #1a3a6e;
+  --jav-azul-light: #3a6bbf;
+  --jav-azul-pale:  #e8eef8;
+  --jav-amarillo:   #F5A800;
+  --jav-amarillo-light: #fff0cc;
+  --jav-blanco:     #ffffff;
+  --jav-negro:      #1a1a2e;
+  --jav-gris:       #6b7280;
+  --jav-gris-claro: #f4f6fb;
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);box-shadow:var(--shadow-sm);padding:var(--space-3) var(--space-4)}
-.nav-inner{max-width:var(--content-wide);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
-.nav-logo{display:flex;align-items:center;gap:var(--space-2);text-decoration:none;color:var(--color-primary);font-family:var(--font-display);font-weight:700;font-size:var(--text-sm)}
-.nav-logo svg{flex-shrink:0}
-.nav-links{display:flex;gap:var(--space-1);list-style:none}
-.nav-links a{font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);text-decoration:none;padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);transition:color var(--transition),background var(--transition)}
-.nav-links a:hover,.nav-links a.active{color:var(--color-primary);background:var(--color-primary-light)}
-.nav-actions{display:flex;align-items:center;gap:var(--space-2)}
-.theme-toggle{width:36px;height:36px;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);border:1px solid var(--color-border)}
-.theme-toggle:hover{color:var(--color-primary);border-color:var(--color-primary);background:var(--color-primary-light)}
-@media (max-width:767px){.nav-links{display:none}}
+  /* Surfaces */
+  --color-bg:       #f4f6fb;
+  --color-surface:  #ffffff;
+  --color-border:   rgba(44, 86, 151, 0.15);
+  --color-divider:  rgba(44, 86, 151, 0.10);
 
-/* PROGRESS */
-.progress-bar{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--color-divider);z-index:200}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));width:0%;transition:width 0.4s ease}
+  /* Text */
+  --color-text:     #1a1a2e;
+  --color-muted:    #4a5568;
+  --color-faint:    #9aa3b2;
 
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--color-primary) 0%,#1e3d6e 60%,#0f2040 100%);color:#fff;padding:clamp(var(--space-16),10vw,var(--space-20)) var(--space-4);text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-inner{max-width:var(--content-default);margin-inline:auto;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:var(--space-6);color:var(--color-accent)}
-.hero-title{font-size:var(--text-3xl);font-weight:700;color:#fff;margin-bottom:var(--space-4);line-height:1.1}
-.hero-subtitle{font-size:var(--text-lg);color:rgba(255,255,255,0.8);margin-bottom:var(--space-8);max-width:56ch;margin-inline:auto}
-.hero-cta{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--color-accent);color:#1a1a2e;font-weight:700;font-size:var(--text-sm);padding:var(--space-3) var(--space-6);border-radius:var(--radius-full);text-decoration:none;transition:background var(--transition),transform var(--transition),box-shadow var(--transition)}
-.hero-cta:hover{background:var(--color-accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,168,0,0.4)}
-.hero-progress{margin-top:var(--space-10);display:flex;align-items:center;justify-content:center;gap:var(--space-2)}
-.progress-dot{width:36px;height:36px;border-radius:var(--radius-full);background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:700;color:rgba(255,255,255,0.7);cursor:pointer;transition:all var(--transition)}
-.progress-dot:hover,.progress-dot.active{background:var(--color-accent);border-color:var(--color-accent);color:#1a1a2e}
-.progress-dot-label{font-size:var(--text-xs);color:rgba(255,255,255,0.5);margin-top:var(--space-1);text-align:center;max-width:60px}
-.progress-dot-wrapper{display:flex;flex-direction:column;align-items:center;gap:2px}
-.progress-connector{width:32px;height:2px;background:rgba(255,255,255,0.2);margin-top:-18px}
-@media (max-width:600px){.progress-connector{width:16px}.progress-dot{width:28px;height:28px}}
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Source Sans 3', system-ui, sans-serif;
 
-/* TABS */
-.tabs-bar{background:var(--color-surface);border-bottom:1px solid var(--color-border);position:sticky;top:57px;z-index:90;overflow-x:auto;scrollbar-width:none}
-.tabs-bar::-webkit-scrollbar{display:none}
-.tabs-inner{max-width:var(--content-wide);margin-inline:auto;display:flex;padding-inline:var(--space-4)}
-.tab-btn{flex-shrink:0;padding:var(--space-3) var(--space-4);font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);border:none;background:none;border-bottom:2px solid transparent;cursor:pointer;transition:color var(--transition),border-color var(--transition);white-space:nowrap}
-.tab-btn:hover{color:var(--color-primary)}
-.tab-btn.active{color:var(--color-primary);border-bottom-color:var(--color-primary)}
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
 
-/* SECTIONS */
-.section{padding:clamp(var(--space-12),6vw,var(--space-20)) var(--space-4);max-width:var(--content-wide);margin-inline:auto}
-.section-header{margin-bottom:var(--space-10)}
-.section-number{font-size:var(--text-xs);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-2);display:flex;align-items:center;gap:var(--space-2)}
-.section-number::before{content:'';display:block;width:24px;height:2px;background:var(--color-primary)}
-.section-title{font-size:var(--text-2xl);color:var(--color-text);margin-bottom:var(--space-4)}
-.section-desc{font-size:var(--text-base);color:var(--color-text-muted);max-width:60ch}
-.section-divider{border:none;border-top:1px solid var(--color-divider);margin:clamp(var(--space-12),6vw,var(--space-20)) 0}
-.section-bg{background:var(--color-surface-2)}
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 
-/* CARDS */
-.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);box-shadow:var(--shadow-sm);transition:box-shadow var(--transition),transform var(--transition)}
-.card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.card-icon{width:44px;height:44px;border-radius:var(--radius-lg);background:var(--color-primary-light);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);color:var(--color-primary)}
-.card-title{font-size:var(--text-lg);font-family:var(--font-display);margin-bottom:var(--space-2);color:var(--color-text)}
-.card-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--space-6)}
-.cards-grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:var(--space-6)}
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(44,86,151,0.08);
+  --shadow-md: 0 4px 16px rgba(44,86,151,0.12);
+  --shadow-lg: 0 12px 40px rgba(44,86,151,0.16);
 
-/* QUOTE */
-.quote-block{background:var(--color-primary-light);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:var(--space-6) var(--space-8);margin:var(--space-8) 0}
-.quote-text{font-size:var(--text-lg);font-family:var(--font-display);font-style:italic;color:var(--color-primary);line-height:1.5;margin-bottom:var(--space-3)}
-.quote-author{font-size:var(--text-xs);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-muted)}
+  /* Type scale */
+  --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --text-hero: clamp(2.5rem, 1rem + 5vw, 5rem);
+}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:var(--space-2);font-weight:600;font-size:var(--text-sm);padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);text-decoration:none;transition:background var(--transition),transform var(--transition),box-shadow var(--transition);min-height:44px;border:none;cursor:pointer}
-.btn-primary{background:var(--color-primary);color:#fff}
-.btn-primary:hover{background:var(--color-primary-hover);transform:translateY(-1px);box-shadow:var(--shadow-md)}
-.btn-accent{background:var(--color-accent);color:#1a1a2e}
-.btn-accent:hover{background:var(--color-accent-hover);transform:translateY(-1px)}
-.btn-outline{background:transparent;color:var(--color-primary);border:2px solid var(--color-primary)}
-.btn-outline:hover{background:var(--color-primary-light)}
-.btn-group{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin-top:var(--space-6)}
+/* ===== BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: 5rem; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.65;
+  min-height: 100dvh;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--jav-azul); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--jav-azul-light); }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+h1,h2,h3,h4 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; }
+p, li { text-wrap: pretty; }
 
-/* VIDEO */
-.video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);background:var(--color-surface-offset)}
-.video-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:var(--radius-xl)}
-.video-wrapper{margin:var(--space-8) 0}
-.video-label{font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text-muted);margin-bottom:var(--space-3);display:flex;align-items:center;gap:var(--space-2)}
-.video-label::before{content:'▶';color:var(--color-primary)}
+::selection { background: rgba(44,86,151,0.2); color: var(--color-text); }
+:focus-visible { outline: 2px solid var(--jav-azul); outline-offset: 3px; border-radius: var(--radius-sm); }
 
-/* DISC */
-.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:var(--space-4);margin-top:var(--space-6)}
-.disc-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2)}
-.disc-card-title{font-weight:700;font-size:var(--text-sm);color:var(--color-text)}
-.disc-card-desc{font-size:var(--text-xs);color:var(--color-text-muted)}
-.disc-card-link{margin-top:auto;font-size:var(--text-xs);font-weight:600;color:var(--color-primary);text-decoration:none;display:flex;align-items:center;gap:4px}
-.disc-card-link:hover{color:var(--color-primary-hover)}
+/* ===== LAYOUT ===== */
+.container { max-width: 1100px; margin-inline: auto; padding-inline: var(--space-6); }
+.container-narrow { max-width: 760px; margin-inline: auto; padding-inline: var(--space-6); }
 
-/* BZG DIAGRAM */
-.bzg-diagram{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);max-width:560px;margin:var(--space-8) auto}
-.bzg-quadrant{border-radius:var(--radius-lg);padding:var(--space-5);text-align:center}
-.bzg-q1{background:#e8edf5;color:#1e3d6e}
-.bzg-q2{background:#fef6e0;color:#7a4f00}
-.bzg-q3{background:#e8f5ef;color:#1a5c38}
-.bzg-q4{background:#f3e8f5;color:#5c1a7a}
-[data-theme="dark"] .bzg-q1{background:#1a2340;color:#8aaede}
-[data-theme="dark"] .bzg-q2{background:#2a2000;color:#ffc233}
-[data-theme="dark"] .bzg-q3{background:#0f2a1a;color:#4daa7f}
-[data-theme="dark"] .bzg-q4{background:#2a0f3a;color:#cc88ee}
-.bzg-quadrant-title{font-family:var(--font-display);font-weight:700;font-size:var(--text-base);margin-bottom:var(--space-2)}
-.bzg-quadrant-desc{font-size:var(--text-xs);line-height:1.5;opacity:0.85}
-.bzg-label{text-align:center;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--space-2)}
+/* ===== SKIP LINK ===== */
+.skip-link { position: absolute; top: -99px; left: var(--space-4); background: var(--jav-azul); color: white; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-weight: 600; z-index: 999; }
+.skip-link:focus { top: var(--space-2); }
 
-/* FEEDBACK */
-.feedback-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:var(--space-5);margin-top:var(--space-6)}
-.feedback-card{border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border)}
-.feedback-card-f1{background:linear-gradient(135deg,#e8edf5,#d0dff0)}
-.feedback-card-f2{background:linear-gradient(135deg,#fef6e0,#fde8b0)}
-.feedback-card-f3{background:linear-gradient(135deg,#e8f5ef,#c8eedd)}
-.feedback-card-f4{background:linear-gradient(135deg,#f3e8f5,#e0c8ee)}
-[data-theme="dark"] .feedback-card-f1{background:linear-gradient(135deg,#1a2340,#0f1a30)}
-[data-theme="dark"] .feedback-card-f2{background:linear-gradient(135deg,#2a2000,#1a1400)}
-[data-theme="dark"] .feedback-card-f3{background:linear-gradient(135deg,#0f2a1a,#081a10)}
-[data-theme="dark"] .feedback-card-f4{background:linear-gradient(135deg,#2a0f3a,#1a0822)}
-.feedback-card-number{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-primary);margin-bottom:var(--space-2)}
-.feedback-card-title{font-family:var(--font-display);font-weight:700;font-size:var(--text-base);color:var(--color-text);margin-bottom:var(--space-2)}
-.feedback-card-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-3)}
-.feedback-card-example{font-size:var(--text-xs);font-style:italic;color:var(--color-text-muted);background:rgba(255,255,255,0.5);border-radius:var(--radius-md);padding:var(--space-3);border-left:3px solid var(--color-primary)}
-[data-theme="dark"] .feedback-card-example{background:rgba(0,0,0,0.3)}
+/* ===== HEADER / NAV ===== */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(44,86,151,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--jav-amarillo);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: var(--space-3);
+  gap: var(--space-4);
+}
+.logo-area { display: flex; align-items: center; gap: var(--space-3); }
+.logo-svg { flex-shrink: 0; }
+.logo-text { display: flex; flex-direction: column; }
+.logo-text .brand { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; color: white; letter-spacing: 0.02em; line-height: 1.1; }
+.logo-text .sub   { font-size: var(--text-xs); color: rgba(255,255,255,0.75); font-weight: 400; margin-top: 1px; }
 
-/* ACCORDION */
-.accordion{margin-top:var(--space-8)}
-.accordion-item{border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:var(--space-3)}
-.accordion-header{width:100%;display:flex;align-items:center;justify-content:space-between;padding:var(--space-4) var(--space-5);background:var(--color-surface);cursor:pointer;font-weight:600;font-size:var(--text-sm);color:var(--color-text);text-align:left;gap:var(--space-3)}
-.accordion-header:hover{background:var(--color-surface-2)}
-.accordion-icon{width:20px;height:20px;border-radius:var(--radius-full);background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;transition:transform var(--transition)}
-.accordion-item.open .accordion-icon{transform:rotate(45deg)}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding var(--transition)}
-.accordion-item.open .accordion-body{max-height:400px}
-.accordion-content{padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;border-top:1px solid var(--color-divider)}
+.main-nav { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.nav-link {
+  font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85); padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.nav-link:hover { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.2); }
+.nav-link.active { background: var(--jav-amarillo); color: var(--jav-negro); border-color: var(--jav-amarillo); }
 
-/* TRUST */
-.trust-principles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:var(--space-5);margin-top:var(--space-6)}
-.trust-principle{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6)}
-.trust-icon{font-size:1.75rem;margin-bottom:var(--space-3)}
-.trust-title{font-family:var(--font-display);font-weight:700;font-size:var(--text-base);color:var(--color-text);margin-bottom:var(--space-2)}
-.trust-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
-.trust-destroyers{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6);margin-top:var(--space-8)}
-.trust-destroyers-title{font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--color-text);margin-bottom:var(--space-4)}
-.trust-destroyer-item{display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider)}
-.trust-destroyer-item:last-child{border-bottom:none}
-.trust-x{width:20px;height:20px;border-radius:var(--radius-full);background:#fce8e6;color:#c0392b;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700}
-[data-theme="dark"] .trust-x{background:#3a0a08;color:#e88880}
-.trust-destroyer-text{font-size:var(--text-sm);color:var(--color-text-muted);padding-top:1px}
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: var(--space-2); }
+.hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s ease; }
 
-/* INFLUENCE MAP */
-.influence-map{position:relative;width:100%;max-width:480px;aspect-ratio:1;margin:var(--space-8) auto;user-select:none}
-.map-ring{position:absolute;border-radius:50%;border:2px dashed;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}
-.ring-outer{inset:0;border-color:rgba(44,86,151,0.2);background:rgba(44,86,151,0.03)}
-.ring-mid{inset:20%;border-color:rgba(44,86,151,0.35);background:rgba(44,86,151,0.05)}
-.ring-inner{inset:40%;border-color:var(--color-primary);background:rgba(44,86,151,0.08)}
-.map-center{position:absolute;inset:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:var(--color-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:var(--text-xs);font-weight:700;text-align:center;line-height:1.2;z-index:10;box-shadow:var(--shadow-md)}
-.map-actor{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:700;color:#fff;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform 0.2s ease,box-shadow 0.2s ease;z-index:5}
-.map-actor:hover{transform:translate(-50%,-50%) scale(1.15);box-shadow:var(--shadow-md)}
-.map-actor-label{position:absolute;top:110%;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--color-text-muted);white-space:nowrap;background:var(--color-surface);padding:2px 6px;border-radius:var(--radius-sm);border:1px solid var(--color-border)}
-.actor-aliado{background:#2d7a4f}
-.actor-neutral{background:#c8a000}
-.actor-resistente{background:#c0392b}
-.map-legend{display:flex;justify-content:center;gap:var(--space-5);margin-top:var(--space-4);flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-text-muted)}
-.legend-dot{width:10px;height:10px;border-radius:50%}
-.map-caption{text-align:center;font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-2);font-style:italic}
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, var(--jav-azul-dark) 0%, var(--jav-azul) 50%, var(--jav-azul-light) 100%);
+  position: relative; overflow: hidden;
+  padding-block: var(--space-16) var(--space-12);
+  color: white;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-accent {
+  position: absolute; top: -40px; right: -60px; width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(245,168,0,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  background: rgba(245,168,0,0.2); border: 1px solid rgba(245,168,0,0.5);
+  color: var(--jav-amarillo); padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-5);
+}
+.hero h1 {
+  font-size: var(--text-hero); font-weight: 700; color: white;
+  margin-bottom: var(--space-5); max-width: 780px;
+}
+.hero h1 em { color: var(--jav-amarillo); font-style: normal; }
+.hero p { font-size: var(--text-lg); color: rgba(255,255,255,0.85); max-width: 640px; margin-bottom: var(--space-8); }
+.hero-podcast {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
+  padding: var(--space-3) var(--space-5); border-radius: var(--radius-xl);
+  color: white; font-weight: 600; font-size: var(--text-sm);
+  transition: all 0.2s ease;
+}
+.hero-podcast:hover { background: rgba(255,255,255,0.2); color: white; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.hero-podcast svg { flex-shrink: 0; }
+.hero-stats {
+  display: flex; gap: var(--space-8); margin-top: var(--space-10);
+  padding-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.15);
+  flex-wrap: wrap;
+}
+.stat { display: flex; flex-direction: column; }
+.stat-num { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; color: var(--jav-amarillo); }
+.stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* CANVA CTA */
-.canva-cta-block{background:linear-gradient(135deg,var(--color-primary-light),var(--color-accent-light));border:1px solid var(--color-border);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;margin:var(--space-8) 0}
-.canva-cta-title{font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-text);margin-bottom:var(--space-3)}
-.canva-cta-desc{font-size:var(--text-sm);color:var(--color-text-muted);max-width:48ch;margin-inline:auto;margin-bottom:var(--space-6)}
-.canva-cta{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--text-sm);padding:var(--space-3) var(--space-6);border-radius:var(--radius-full);text-decoration:none;transition:background var(--transition),transform var(--transition),box-shadow var(--transition)}
-.canva-cta:hover{background:var(--color-primary-hover);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+/* ===== PROGRESS BAR ===== */
+.progress-section { background: var(--jav-azul); padding-block: var(--space-4); }
+.progress-inner { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+.progress-label { color: rgba(255,255,255,0.8); font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+.progress-track { flex: 1; min-width: 150px; height: 6px; background: rgba(255,255,255,0.2); border-radius: var(--radius-full); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--jav-amarillo); border-radius: var(--radius-full); width: 0%; transition: width 0.8s ease; }
+.progress-steps { display: flex; gap: var(--space-2); flex-shrink: 0; }
+.progress-dot { width: 28px; height: 28px; border-radius: var(--radius-full); border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.2s ease; }
+.progress-dot.done { background: var(--jav-amarillo); border-color: var(--jav-amarillo); color: var(--jav-negro); }
+.progress-dot.active { border-color: white; color: white; }
 
-/* STRATEGIES */
-.strategies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:var(--space-5);margin-top:var(--space-8)}
-.strategy-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-6)}
-.strategy-number{font-size:var(--text-xs);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-2)}
-.strategy-title{font-family:var(--font-display);font-weight:700;font-size:var(--text-base);color:var(--color-text);margin-bottom:var(--space-2)}
-.strategy-desc{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.6}
+/* ===== SECTION NAV TABS ===== */
+.tabs-section { background: var(--color-surface); border-bottom: 1px solid var(--color-divider); position: sticky; top: 60px; z-index: 90; box-shadow: var(--shadow-sm); }
+.tabs-inner { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-4) var(--space-5); white-space: nowrap;
+  font-size: var(--text-sm); font-weight: 600; color: var(--color-muted);
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.tab-btn:hover { color: var(--jav-azul); background: var(--jav-azul-pale); }
+.tab-btn.active { color: var(--jav-azul); border-bottom-color: var(--jav-azul); }
+.tab-icon { font-size: 18px; }
 
-/* COMPLETION */
-.completion{background:linear-gradient(135deg,var(--color-primary) 0%,#1e3d6e 100%);color:#fff;padding:clamp(var(--space-16),10vw,var(--space-20)) var(--space-4);text-align:center}
-.completion-inner{max-width:var(--content-narrow);margin-inline:auto}
-.completion-badge{font-size:3rem;margin-bottom:var(--space-4)}
-.completion-title{font-size:var(--text-2xl);color:#fff;margin-bottom:var(--space-4)}
-.completion-text{font-size:var(--text-base);color:rgba(255,255,255,0.8);margin-bottom:var(--space-8);max-width:52ch;margin-inline:auto}
+/* ===== SECTION GENERAL ===== */
+.section { padding-block: var(--space-12) var(--space-16); }
+.section:nth-child(even) { background: var(--color-surface); }
+.section-header { margin-bottom: var(--space-10); }
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--jav-azul); margin-bottom: var(--space-3);
+}
+.section-eyebrow::before { content:''; display:inline-block; width:28px; height:2px; background:var(--jav-amarillo); }
+.section-title { font-size: var(--text-xl); color: var(--color-text); margin-bottom: var(--space-4); }
+.section-title strong { color: var(--jav-azul); }
+.section-lead { font-size: var(--text-lg); color: var(--color-muted); max-width: 680px; line-height: 1.7; }
 
-/* FOOTER */
-.footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding:var(--space-8) var(--space-4);text-align:center}
-.footer-inner{max-width:var(--content-default);margin-inline:auto}
-.footer-logo{display:flex;align-items:center;justify-content:center;gap:var(--space-3);margin-bottom:var(--space-4)}
-.footer-text{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6}
+/* ===== CARD ===== */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+/* ===== GRID LAYOUTS ===== */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px,100%), 1fr)); gap: var(--space-6); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px,100%), 1fr)); gap: var(--space-6); }
+
+/* ===== HERRAMIENTA 1: COMPRENSIÓN DEL LIDERAZGO ===== */
+#seccion-1 { background: var(--color-bg); }
+.liderazgo-card {
+  background: white; border-radius: var(--radius-2xl); overflow: hidden;
+  box-shadow: var(--shadow-md); border: 1px solid var(--color-border);
+}
+.liderazgo-highlight {
+  background: linear-gradient(135deg, var(--jav-azul) 0%, var(--jav-azul-light) 100%);
+  padding: var(--space-8); color: white; position: relative; overflow: hidden;
+}
+.liderazgo-highlight::after {
+  content: '"'; font-family: var(--font-display); font-size: 120px; position: absolute;
+  right: var(--space-6); top: -20px; opacity: 0.15; line-height: 1; color: white;
+}
+.liderazgo-highlight p { font-size: var(--text-lg); font-style: italic; color: rgba(255,255,255,0.95); max-width: 540px; position: relative; z-index: 1; }
+.liderazgo-highlight cite { display: block; margin-top: var(--space-3); font-size: var(--text-sm); font-style: normal; font-weight: 700; color: var(--jav-amarillo); }
+.liderazgo-body { padding: var(--space-8); }
+.liderazgo-body h3 { font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-4); }
+.liderazgo-body p { color: var(--color-muted); margin-bottom: var(--space-6); line-height: 1.7; }
+
+.video-embed {
+  border-radius: var(--radius-lg); overflow: hidden;
+  aspect-ratio: 16/9; background: var(--jav-negro);
+  box-shadow: var(--shadow-md);
+}
+.video-embed iframe { width: 100%; height: 100%; border: none; }
+
+/* ===== HERRAMIENTA 2: ESTILO DE PENSAMIENTO ===== */
+#seccion-2 { background: white; }
+.pensamiento-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: start; }
+@media (max-width: 768px) { .pensamiento-grid { grid-template-columns: 1fr; } }
+
+.cerebro-card {
+  background: var(--jav-azul-pale); border: 1px solid rgba(44,86,151,0.2);
+  border-radius: var(--radius-2xl); padding: var(--space-6); position: relative;
+}
+.cerebro-visual {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-6);
+}
+.cerebro-cuadrante {
+  border-radius: var(--radius-lg); padding: var(--space-4);
+  font-size: var(--text-sm); font-weight: 700;
+}
+.cuad-fl { background: rgba(44,86,151,0.15); color: var(--jav-azul-dark); }
+.cuad-fd { background: rgba(245,168,0,0.15); color: #8a5c00; }
+.cuad-pl { background: rgba(245,168,0,0.12); color: #7a5200; }
+.cuad-pd { background: rgba(44,86,151,0.12); color: var(--jav-azul-dark); }
+.cuad-label { font-size: var(--text-xs); opacity: 0.75; margin-bottom: var(--space-1); text-transform: uppercase; letter-spacing: 0.04em; }
+.cuad-name { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-1); }
+.cuad-desc { font-size: var(--text-xs); font-weight: 400; line-height: 1.5; opacity: 0.85; }
+
+.pensamiento-info h3 { font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-3); }
+.pensamiento-info p { color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-5); }
+
+.test-links { display: flex; flex-direction: column; gap: var(--space-3); }
+.test-link-card {
+  display: flex; align-items: center; gap: var(--space-4);
+  background: white; border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+  padding: var(--space-4); text-decoration: none; color: var(--color-text);
+  transition: all 0.2s ease; box-shadow: var(--shadow-sm);
+}
+.test-link-card:hover { border-color: var(--jav-azul); box-shadow: var(--shadow-md); transform: translateY(-2px); color: var(--jav-azul); }
+.test-link-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-md); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.test-link-card h4 { font-size: var(--text-sm); font-weight: 700; font-family: var(--font-body); margin-bottom: 2px; }
+.test-link-card p { font-size: var(--text-xs); color: var(--color-muted); margin: 0; }
+.test-link-arrow { margin-left: auto; flex-shrink: 0; opacity: 0.4; transition: all 0.2s ease; }
+.test-link-card:hover .test-link-arrow { opacity: 1; transform: translateX(4px); }
+
+.material-links { margin-top: var(--space-6); }
+.material-links h4 { font-size: var(--text-sm); font-weight: 700; color: var(--jav-azul); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.material-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+.material-list li a {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-sm); color: var(--color-muted); padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md); background: var(--jav-azul-pale);
+  transition: all 0.2s; font-weight: 500;
+}
+.material-list li a:hover { background: rgba(44,86,151,0.15); color: var(--jav-azul); }
+
+/* ===== HERRAMIENTA 3: COMUNICACIÓN Y FEEDBACK ===== */
+#seccion-3 { background: var(--color-bg); }
+.feedback-tipos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px,100%), 1fr));
+  gap: var(--space-5); margin-bottom: var(--space-10);
+}
+.feedback-card {
+  background: white; border-radius: var(--radius-xl); padding: var(--space-6);
+  border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden;
+}
+.feedback-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.feedback-card.directivo::before { background: var(--jav-azul); }
+.feedback-card.contingencia::before { background: var(--jav-amarillo); }
+.feedback-card.atribucion::before { background: #22c55e; }
+.feedback-card.impacto::before { background: #8b5cf6; }
+
+.feedback-card-label {
+  font-size: var(--text-xs); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; margin-bottom: var(--space-2);
+}
+.directivo .feedback-card-label { color: var(--jav-azul); }
+.contingencia .feedback-card-label { color: #92680a; }
+.atribucion .feedback-card-label { color: #15803d; }
+.impacto .feedback-card-label { color: #7c3aed; }
+
+.feedback-card h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-text); margin-bottom: var(--space-2); font-family: var(--font-body); }
+.feedback-card .def { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-4); line-height: 1.6; }
+.ejemplos { display: flex; flex-direction: column; gap: var(--space-2); }
+.ejemplo {
+  background: var(--color-bg); border-radius: var(--radius-md); padding: var(--space-3);
+  font-size: var(--text-xs); color: var(--color-muted); font-style: italic; line-height: 1.6;
+  border-left: 2px solid var(--color-divider);
+}
+
+/* Accordion de riesgos */
+.riesgos-section {
+  background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm); overflow: hidden; margin-top: var(--space-8);
+}
+.riesgos-header {
+  padding: var(--space-6); background: linear-gradient(90deg, var(--jav-azul) 0%, var(--jav-azul-light) 100%);
+  color: white;
+}
+.riesgos-header h3 { font-size: var(--text-lg); font-weight: 700; color: white; }
+.riesgos-header p  { font-size: var(--text-sm); color: rgba(255,255,255,0.8); margin-top: var(--space-1); font-family: var(--font-body); }
+.riesgo-item { border-top: 1px solid var(--color-divider); }
+.riesgo-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-5) var(--space-6); text-align: left;
+  font-size: var(--text-sm); font-weight: 700; color: var(--jav-azul);
+  background: white; transition: background 0.2s;
+}
+.riesgo-toggle:hover { background: var(--jav-azul-pale); }
+.riesgo-toggle svg { transition: transform 0.3s ease; flex-shrink: 0; }
+.riesgo-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.riesgo-body { display: none; padding: var(--space-4) var(--space-6) var(--space-5); background: var(--color-bg); }
+.riesgo-body.open { display: block; }
+.riesgo-body p { font-size: var(--text-sm); color: var(--color-muted); line-height: 1.7; }
+
+/* Video negociación */
+.video-section { margin-bottom: var(--space-8); }
+.video-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--jav-azul); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.video-label::after { content: ''; flex: 1; height: 1px; background: var(--color-divider); }
+
+/* ===== HERRAMIENTA 4: RELACIÓN Y CONFIANZA ===== */
+#seccion-4 { background: white; }
+.confianza-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: start; }
+@media (max-width: 768px) { .confianza-layout { grid-template-columns: 1fr; } }
+
+.confianza-principios { display: flex; flex-direction: column; gap: var(--space-4); }
+.principio-card {
+  display: flex; gap: var(--space-4); padding: var(--space-5);
+  background: var(--jav-azul-pale); border-radius: var(--radius-xl);
+  border: 1px solid rgba(44,86,151,0.15); align-items: flex-start;
+}
+.principio-num {
+  font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700;
+  color: var(--jav-azul); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 36px;
+}
+.principio-content h4 { font-size: var(--text-sm); font-weight: 700; color: var(--jav-azul); margin-bottom: var(--space-1); font-family: var(--font-body); }
+.principio-content p  { font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6; }
+
+.confianza-right h3 { font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-4); }
+.confianza-right p  { color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-6); }
+
+/* ===== HERRAMIENTA 5: ACCIÓN Y COMPROMISO ===== */
+#seccion-5 { background: var(--color-bg); }
+.mapa-container {
+  background: white; border-radius: var(--radius-2xl); padding: var(--space-8);
+  box-shadow: var(--shadow-md); border: 1px solid var(--color-border);
+}
+.mapa-visual {
+  display: flex; align-items: center; justify-content: center;
+  margin-block: var(--space-6); padding: var(--space-8);
+  background: var(--color-bg); border-radius: var(--radius-xl); min-height: 280px; position: relative;
+}
+/* Mapa de influencia CSS art */
+.mapa-svg-wrapper { position: relative; width: 260px; height: 260px; }
+.circulo {
+  position: absolute; border-radius: 50%; border: 2px dashed;
+  display: flex; align-items: center; justify-content: center;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+.c1 { width: 80px; height: 80px; background: var(--jav-azul); border-color: var(--jav-azul); }
+.c2 { width: 140px; height: 140px; background: rgba(44,86,151,0.1); border-color: rgba(44,86,151,0.4); }
+.c3 { width: 210px; height: 210px; background: rgba(44,86,151,0.04); border-color: rgba(44,86,151,0.2); }
+.yo-label { font-size: 11px; font-weight: 800; color: white; text-align: center; line-height: 1.2; z-index: 1; }
+.actor {
+  position: absolute; width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: white; border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.actor-aliado    { background: #22c55e; }
+.actor-neutro    { background: #f59e0b; }
+.actor-resistente{ background: #ef4444; }
+
+.mapa-leyenda { display: flex; gap: var(--space-5); flex-wrap: wrap; justify-content: center; margin-top: var(--space-4); }
+.leyenda-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-muted); font-weight: 600; }
+.leyenda-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+.canva-cta {
+  display: flex; align-items: center; gap: var(--space-4);
+  background: linear-gradient(135deg, var(--jav-azul) 0%, var(--jav-azul-light) 100%);
+  border-radius: var(--radius-xl); padding: var(--space-6);
+  text-decoration: none; color: white; transition: all 0.2s ease;
+  box-shadow: var(--shadow-md); margin-top: var(--space-6);
+}
+.canva-cta:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); color: white; }
+.canva-cta-icon { font-size: 32px; flex-shrink: 0; }
+.canva-cta-text h4 { font-size: var(--text-base); font-weight: 700; margin-bottom: 3px; }
+.canva-cta-text p  { font-size: var(--text-sm); opacity: 0.85; margin: 0; }
+.canva-cta-arrow { margin-left: auto; flex-shrink: 0; opacity: 0.7; }
+
+.estrategias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px,100%),1fr)); gap: var(--space-4); margin-top: var(--space-8); }
+.estrategia-item {
+  background: white; border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  padding: var(--space-5); box-shadow: var(--shadow-sm); text-align: center;
+}
+.estrategia-emoji { font-size: 28px; margin-bottom: var(--space-3); display: block; }
+.estrategia-item h4 { font-size: var(--text-sm); font-weight: 700; color: var(--jav-azul); margin-bottom: var(--space-2); font-family: var(--font-body); }
+.estrategia-item p  { font-size: var(--text-xs); color: var(--color-muted); line-height: 1.6; margin: 0; }
+
+/* ===== CIERRE ===== */
+#seccion-cierre { background: linear-gradient(135deg, var(--jav-azul-dark) 0%, var(--jav-azul) 100%); color: white; padding-block: var(--space-16); }
+.cierre-content { text-align: center; max-width: 680px; margin-inline: auto; }
+.cierre-content h2 { font-size: var(--text-2xl); color: white; margin-bottom: var(--space-5); }
+.cierre-content h2 em { color: var(--jav-amarillo); font-style: normal; }
+.cierre-content p { font-size: var(--text-lg); color: rgba(255,255,255,0.85); margin-bottom: var(--space-10); line-height: 1.7; }
+.herramientas-recap { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-bottom: var(--space-10); }
+.recap-badge {
+  display: flex; align-items: center; gap: var(--space-2);
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  font-size: var(--text-xs); font-weight: 700; color: white;
+}
+.recap-badge span { color: var(--jav-amarillo); font-family: var(--font-display); font-size: 1.1em; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--jav-negro); color: rgba(255,255,255,0.65);
+  padding-block: var(--space-8); font-size: var(--text-xs); text-align: center;
+  border-top: 3px solid var(--jav-amarillo);
+}
+.footer-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.footer-brand { color: white; font-weight: 700; font-family: var(--font-display); font-size: var(--text-sm); }
+
+/* ===== BTN ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-3) var(--space-6); border-radius: var(--radius-lg);
+  font-size: var(--text-sm); font-weight: 700; text-decoration: none;
+  transition: all 0.2s ease; cursor: pointer;
+}
+.btn-primary { background: var(--jav-azul); color: white; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--jav-azul-dark); color: white; box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.btn-gold { background: var(--jav-amarillo); color: var(--jav-negro); }
+.btn-gold:hover { background: #e09700; color: var(--jav-negro); transform: translateY(-2px); }
+.btn-outline-white { border: 1px solid rgba(255,255,255,0.4); color: white; }
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); color: white; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .main-nav { display: none; }
+  .hamburger { display: flex; }
+  .main-nav.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--jav-azul); z-index: 200; justify-content: center; align-items: center; gap: var(--space-4); }
+  .main-nav.open .nav-link { font-size: var(--text-base); padding: var(--space-3) var(--space-6); }
+  .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+  .hero-stats { gap: var(--space-6); }
+  .pensamiento-grid, .confianza-layout { grid-template-columns: 1fr; }
+  .cierre-content h2 { font-size: var(--text-xl); }
+  .herramientas-recap { flex-direction: column; align-items: center; }
+}
+@media (max-width: 480px) {
+  .container { padding-inline: var(--space-4); }
+  .section { padding-block: var(--space-8) var(--space-10); }
+  .feedback-tipos { grid-template-columns: 1fr; }
+  .estrategias-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+.reveal { opacity: 0; transition: opacity 0.6s ease, transform 0.6s ease; transform: translateY(24px); }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform: none; } }
 </style>
 </head>
 <body>
 
-<!-- Progress Bar -->
-<div class="progress-bar" role="progressbar" aria-label="Progreso de la ruta">
-  <div class="progress-fill" id="progress-fill"></div>
-</div>
+<a href="#main-content" class="skip-link">Ir al contenido principal</a>
 
-<!-- Navigation -->
-<nav class="nav" aria-label="Navegación principal">
-  <div class="nav-inner">
-    <a href="#inicio" class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Logo Javeriana" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" rx="6" fill="#2C5697"/>
-        <path d="M8 8h12v3H8zM8 13h8v3H8zM8 18h10v3H8z" fill="#F5A800"/>
-        <circle cx="20" cy="19.5" r="3" fill="#fff"/>
-      </svg>
-      <span>Caja de Herramientas</span>
-    </a>
-    <ul class="nav-links" role="list">
-      <li><a href="#herramienta-1" class="nav-link">01 · Liderazgo</a></li>
-      <li><a href="#herramienta-2" class="nav-link">02 · Pensamiento</a></li>
-      <li><a href="#herramienta-3" class="nav-link">03 · Comunicación</a></li>
-      <li><a href="#herramienta-4" class="nav-link">04 · Confianza</a></li>
-      <li><a href="#herramienta-5" class="nav-link">05 · Acción</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="theme-toggle" data-theme-toggle aria-label="Cambiar tema">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+<!-- ===== HEADER ===== -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-area">
+        <svg class="logo-svg" aria-label="Sello Javeriana" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="20" fill="#F5A800"/>
+          <circle cx="20" cy="20" r="17" fill="#2C5697"/>
+          <!-- IHS simplificado -->
+          <text x="20" y="25" text-anchor="middle" font-family="Georgia,serif" font-size="12" font-weight="bold" fill="white" letter-spacing="1">IHS</text>
+          <line x1="12" y1="27" x2="28" y2="27" stroke="white" stroke-width="1.2" opacity="0.6"/>
+        </svg>
+        <div class="logo-text">
+          <span class="brand">Pontificia Universidad Javeriana</span>
+          <span class="sub">Caja de Herramientas · Influencia Consciente</span>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav" role="navigation" aria-label="Navegación principal">
+        <a href="#seccion-intro" class="nav-link active" data-section="seccion-intro">Inicio</a>
+        <a href="#seccion-1" class="nav-link" data-section="seccion-1">1 · Liderazgo</a>
+        <a href="#seccion-2" class="nav-link" data-section="seccion-2">2 · Pensamiento</a>
+        <a href="#seccion-3" class="nav-link" data-section="seccion-3">3 · Feedback</a>
+        <a href="#seccion-4" class="nav-link" data-section="seccion-4">4 · Confianza</a>
+        <a href="#seccion-5" class="nav-link" data-section="seccion-5">5 · Acción</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
       </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Tabs -->
-<div class="tabs-bar" role="tablist" aria-label="Herramientas">
-  <div class="tabs-inner">
-    <button class="tab-btn active" data-tab="herramienta-1" role="tab" aria-selected="true">01 · Liderazgo</button>
-    <button class="tab-btn" data-tab="herramienta-2" role="tab" aria-selected="false">02 · Pensamiento</button>
-    <button class="tab-btn" data-tab="herramienta-3" role="tab" aria-selected="false">03 · Comunicación</button>
-    <button class="tab-btn" data-tab="herramienta-4" role="tab" aria-selected="false">04 · Confianza</button>
-    <button class="tab-btn" data-tab="herramienta-5" role="tab" aria-selected="false">05 · Acción</button>
-  </div>
-</div>
-
-<!-- Hero -->
-<header class="hero" id="inicio">
-  <div class="hero-inner">
-    <div class="hero-badge">Pontificia Universidad Javeriana</div>
-    <h1 class="hero-title">El Arte de la<br>Influencia Consciente</h1>
-    <p class="hero-subtitle">Una ruta de aprendizaje práctico para líderes que quieren pasar del simple cumplimiento al compromiso real de sus equipos.</p>
-    <a href="#herramienta-1" class="hero-cta">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Comenzar la ruta
-    </a>
-    <div class="hero-progress" aria-label="Mapa de herramientas">
-      <div class="progress-dot-wrapper">
-        <button class="progress-dot" onclick="scrollToSection('herramienta-1')" aria-label="Herramienta 1">1</button>
-        <span class="progress-dot-label">Liderazgo</span>
-      </div>
-      <div class="progress-connector"></div>
-      <div class="progress-dot-wrapper">
-        <button class="progress-dot" onclick="scrollToSection('herramienta-2')" aria-label="Herramienta 2">2</button>
-        <span class="progress-dot-label">Pensamiento</span>
-      </div>
-      <div class="progress-connector"></div>
-      <div class="progress-dot-wrapper">
-        <button class="progress-dot" onclick="scrollToSection('herramienta-3')" aria-label="Herramienta 3">3</button>
-        <span class="progress-dot-label">Comunicación</span>
-      </div>
-      <div class="progress-connector"></div>
-      <div class="progress-dot-wrapper">
-        <button class="progress-dot" onclick="scrollToSection('herramienta-4')" aria-label="Herramienta 4">4</button>
-        <span class="progress-dot-label">Confianza</span>
-      </div>
-      <div class="progress-connector"></div>
-      <div class="progress-dot-wrapper">
-        <button class="progress-dot" onclick="scrollToSection('herramienta-5')" aria-label="Herramienta 5">5</button>
-        <span class="progress-dot-label">Acción</span>
-      </div>
     </div>
   </div>
 </header>
 
-<!-- HERRAMIENTA 1 -->
-<section class="section" id="herramienta-1" aria-labelledby="h1-title">
-  <div class="section-header reveal">
-    <p class="section-number">Herramienta 01</p>
-    <h2 class="section-title" id="h1-title">Comprensión del Liderazgo</h2>
-    <p class="section-desc">¿Qué es influir? La influencia no es autoridad formal ni jerarquía. Es tu capacidad de inspirar y movilizar a otros construida desde tu credibilidad, tu coherencia y tu relación con los otros.</p>
-  </div>
-
-  <div class="quote-block reveal">
-    <p class="quote-text">“Sin confianza, no hay influencia sostenible. El liderazgo que dura se construye desde dentro hacia afuera.”</p>
-    <p class="quote-author">— Caja de Herramientas · Influencia Consciente, Javeriana</p>
-  </div>
-
-  <div class="cards-grid reveal">
-    <div class="card">
-      <div class="card-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      </div>
-      <h3 class="card-title">¿Qué es influir?</h3>
-      <p class="card-desc">La influencia no es el ejercicio del poder jerárquico. Es tu capacidad de inspirar y movilizar a otros, construida desde tu <strong>credibilidad</strong>, tu <strong>coherencia</strong> y tu <strong>relación con los demás</strong>. Un líder que entiende esto pasa del simple cumplimiento al compromiso real de su equipo.</p>
+<!-- ===== HERO ===== -->
+<section id="seccion-intro" class="hero">
+  <div class="hero-accent"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Herramienta de Liderazgo · Serie Consciente
     </div>
-    <div class="card">
-      <div class="card-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
-      <h3 class="card-title">Liderazgo con Influencia</h3>
-      <p class="card-desc">Influir de manera consciente significa conocerte, saber cómo impactas a otros y elegir deliberadamente cómo relacionarte. No se trata de manipular, sino de construir relaciones reales donde las personas se sientan vistas, valoradas y movilizadas.</p>
-    </div>
-  </div>
-
-  <div class="video-wrapper reveal">
-    <p class="video-label">Video introductorio</p>
-    <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/7HvYUlH4mkA" title="Liderazgo con Influencia Consciente" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-
-  <div class="btn-group reveal">
-    <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Ver material en Drive
-    </a>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- HERRAMIENTA 2 -->
-<section class="section section-bg" id="herramienta-2" aria-labelledby="h2-title">
-  <div class="section-header reveal">
-    <p class="section-number">Herramienta 02</p>
-    <h2 class="section-title" id="h2-title">Estilo de Pensamiento</h2>
-    <p class="section-desc">No puedes influir en otros sin autoconciencia. Tu cerebro y tu estilo impactan tu comunicación, tus decisiones y el clima del equipo. Reconocer tu estilo te permite entender tus fortalezas naturales y tus zonas de riesgo.</p>
-  </div>
-
-  <p class="bzg-label">Los 4 cuadrantes del pensamiento (BZG)</p>
-  <div class="bzg-diagram reveal">
-    <div class="bzg-quadrant bzg-q1">
-      <p class="bzg-quadrant-title">Frontal Izquierdo</p>
-      <p class="bzg-quadrant-desc">Lógico, analítico, orientado a datos y resultados. Toma decisiones con base en hechos.</p>
-    </div>
-    <div class="bzg-quadrant bzg-q2">
-      <p class="bzg-quadrant-title">Frontal Derecho</p>
-      <p class="bzg-quadrant-desc">Creativo, intuitivo, visionario. Genera ideas y ve el panorama completo.</p>
-    </div>
-    <div class="bzg-quadrant bzg-q3">
-      <p class="bzg-quadrant-title">Posterior Izquierdo</p>
-      <p class="bzg-quadrant-desc">Organizado, estructurado, meticuloso. Valora los procesos y los detalles.</p>
-    </div>
-    <div class="bzg-quadrant bzg-q4">
-      <p class="bzg-quadrant-title">Posterior Derecho</p>
-      <p class="bzg-quadrant-desc">Empático, colaborativo, relacional. Prioriza las personas y la armónica del equipo.</p>
-    </div>
-  </div>
-
-  <div class="card reveal" style="margin-top:var(--space-8);max-width:640px">
-    <h3 class="card-title">Conoce tu estilo de pensamiento</h3>
-    <p class="card-desc" style="margin-bottom:var(--space-4)">Guarda tu resultado y compártelo con tu equipo. Conocer los estilos de pensamiento de cada miembro transforma la forma en que se comunican, toman decisiones y generan acuerdos.</p>
-    <p class="card-desc" style="margin-bottom:var(--space-4);font-weight:600;color:var(--color-text)">Realiza una de las siguientes pruebas gratuitas (análisis DISC o similar):</p>
-    <div class="disc-grid">
-      <div class="disc-card">
-        <p class="disc-card-title">Test DISC — Personality</p>
-        <p class="disc-card-desc">Plataforma completa con interpretación detallada de tu perfil de comportamiento.</p>
-        <a href="https://personality.co/es/personality-test" target="_blank" rel="noopener noreferrer" class="disc-card-link">Realizar test →</a>
-      </div>
-      <div class="disc-card">
-        <p class="disc-card-title">Test DISC — David Blanco</p>
-        <p class="disc-card-desc">Versión gratuita breve con resultados inmediatos sobre tu estilo dominante.</p>
-        <a href="https://davidblancoperez.com/test-disc-gratis/" target="_blank" rel="noopener noreferrer" class="disc-card-link">Realizar test →</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="btn-group reveal">
-    <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Ver material en Drive
-    </a>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- HERRAMIENTA 3 -->
-<section class="section" id="herramienta-3" aria-labelledby="h3-title">
-  <div class="section-header reveal">
-    <p class="section-number">Herramienta 03</p>
-    <h2 class="section-title" id="h3-title">Comunicación y Feedback</h2>
-    <p class="section-desc">La influencia efectiva requiere adaptar tu mensaje al estilo del otro. Según los estilos de pensamiento, cada persona necesita un tipo diferente de comunicación para ser movilizada.</p>
-  </div>
-
-  <h3 class="reveal" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);margin-bottom:var(--space-2)">Los 4 tipos de Feedback</h3>
-  <p class="reveal" style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-6);max-width:60ch">Utiliza los cuatro tipos de retroalimentación para guiar a tu equipo. Cada tipo tiene un propósito distinto y genera un efecto diferente en quien lo recibe.</p>
-
-  <div class="feedback-grid reveal">
-    <div class="feedback-card feedback-card-f1">
-      <p class="feedback-card-number">Tipo 01 &mdash; Directivo</p>
-      <h4 class="feedback-card-title">Indica qué hacer</h4>
-      <p class="feedback-card-desc">¡Señala a alguien exactamente lo que debe hacer, cuándo y cómo.</p>
-      <div class="feedback-card-example">“Necesito que entregues el informe el viernes antes del mediodía, incluyendo la sección de análisis de riesgo.”</div>
-    </div>
-    <div class="feedback-card feedback-card-f2">
-      <p class="feedback-card-number">Tipo 02 &mdash; Contingencia</p>
-      <h4 class="feedback-card-title">Da una consecuencia futura</h4>
-      <p class="feedback-card-desc">Conecta las acciones presentes con resultados futuros concretos.</p>
-      <div class="feedback-card-example">“Si terminamos esto hoy, el cliente tendrá su propuesta a tiempo y eso fortalecerá la relación.”</div>
-    </div>
-    <div class="feedback-card feedback-card-f3">
-      <p class="feedback-card-number">Tipo 03 &mdash; Atribución</p>
-      <h4 class="feedback-card-title">Describe la calidad de la acción</h4>
-      <p class="feedback-card-desc">Reconoce características específicas de la persona en sus acciones.</p>
-      <div class="feedback-card-example">“Lo que hiciste refleja tu capacidad de leer la sala y ajustar el mensaje al instante. Eso es inteligencia situacional.”</div>
-    </div>
-    <div class="feedback-card feedback-card-f4">
-      <p class="feedback-card-number">Tipo 04 &mdash; Impacto</p>
-      <h4 class="feedback-card-title">Comunica el efecto en otros</h4>
-      <p class="feedback-card-desc">Informa el efecto que las acciones tuvieron sobre personas u organización.</p>
-      <div class="feedback-card-example">“Cuando tomaste la iniciativa ayer, el equipo se sintió respaldado y pudo terminar a tiempo. Eso construye confianza.”</div>
-    </div>
-  </div>
-
-  <div class="video-wrapper reveal">
-    <p class="video-label">Material adicional: Cómo negociar en situaciones difíciles</p>
-    <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/VEbrO-sR19I" title="Cómo negociar en situaciones difíciles" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-
-  <div class="video-wrapper reveal">
-    <p class="video-label">Video Liderazgo y Comunicación</p>
-    <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/yesK1cSqbSs" title="Liderazgo y Comunicación" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-
-  <div class="accordion reveal" aria-label="Riesgos comunes de comunicación">
-    <h3 style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);margin-bottom:var(--space-4)">⚠️ Riesgos Comunes de la Comunicación de un Líder</h3>
-    <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4)">Expande cada riesgo para conocer cómo reconocerlo y evitarlo</p>
-    <div class="accordion-item">
-      <button class="accordion-header" aria-expanded="false">
-        <span>Comunicar igual a todos los estilos</span>
-        <span class="accordion-icon">+</span>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-content">Un perfil Frontal Izquierdo necesita que seas breve y vayas a los hechos, mientras que un Posterior Derecho valora la empatía y la conexión interpersonal. Comunicar igual a todos reduce el impacto y la influencia. Identifica primero el estilo y luego adapta tu mensaje.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <button class="accordion-header" aria-expanded="false">
-        <span>Dar feedback improvisado y vago</span>
-        <span class="accordion-icon">+</span>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-content">El feedback improvisado tiende a ser vago o agresivo. Usa siempre uno de los cuatro tipos (directivo, contingencia, atribución o impacto) para estructurar tu mensaje. Sé específico: menciona el comportamiento, no la persona.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <button class="accordion-header" aria-expanded="false">
-        <span>Abusar del feedback directivo</span>
-        <span class="accordion-icon">+</span>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-content">El abuso del feedback directivo genera dependencia y baja autonomía. Alterna con feedback de impacto y atribución para construir confianza y reconocer capacidades. El equipo necesita saber qué hace bien, no solo qué corregir.</div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <button class="accordion-header" aria-expanded="false">
-        <span>Incoherencia entre palabras y acciones</span>
-        <span class="accordion-icon">+</span>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-content">La credibilidad se construye en la coherencia entre lo que dices y lo que haces. Si proclamas valores de colaboración pero actúas en silos, el equipo percibirá la incoherencia y tu influencia caerá. Cuida especialmente tus acciones en momentos de presión.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="btn-group reveal">
-    <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Ver material en Drive
-    </a>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- HERRAMIENTA 4 -->
-<section class="section section-bg" id="herramienta-4" aria-labelledby="h4-title">
-  <div class="section-header reveal">
-    <p class="section-number">Herramienta 04</p>
-    <h2 class="section-title" id="h4-title">Relación y Confianza</h2>
-    <p class="section-desc">Las personas siguen a líderes que generan seguridad, son coherentes y cumplen lo que dicen. La confianza se fortalece cuando escuchas genuinamente y reconoces tus errores.</p>
-  </div>
-
-  <h3 class="reveal" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);margin-bottom:var(--space-6)">Acciones cotidianas que construyen confianza</h3>
-
-  <div class="trust-principles reveal">
-    <div class="trust-principle">
-      <div class="trust-icon">👂</div>
-      <h4 class="trust-title">Escucha genuina</h4>
-      <p class="trust-desc">Presta atención sin interrumpir. Haz preguntas que demuestren que entendiste lo que te dijeron antes de responder.</p>
-    </div>
-    <div class="trust-principle">
-      <div class="trust-icon">🤝</div>
-      <h4 class="trust-title">Reconoce tus errores</h4>
-      <p class="trust-desc">Admitir equivocaciones frente al equipo genera cercanía y demuestra seguridad personal. Nadie confía en quien siempre tiene la razón.</p>
-    </div>
-    <div class="trust-principle">
-      <div class="trust-icon">✅</div>
-      <h4 class="trust-title">Cumple lo que prometes</h4>
-      <p class="trust-desc">La confianza se construye en la consistencia. Si dices que harás algo, hazlo. Los pequeños incumplimientos erosionan la credibilidad gradualmente.</p>
-    </div>
-    <div class="trust-principle">
-      <div class="trust-icon">🎯</div>
-      <h4 class="trust-title">Evita el control excesivo y el favoritismo</h4>
-      <p class="trust-desc">La microgestión y los favoritismos son los principales destructores de confianza en equipos. Genera autonomía y aplica criterios justos para todos.</p>
-    </div>
-  </div>
-
-  <div class="video-wrapper reveal">
-    <p class="video-label">Seguridad psicológica en el trabajo</p>
-    <div class="video-embed">
-      <iframe src="https://www.youtube.com/embed/yesK1cSqbSs" title="Seguridad psicológica en el trabajo" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-
-  <div class="trust-destroyers reveal">
-    <h3 class="trust-destroyers-title">La confianza se destruye cuando&hellip;</h3>
-    <div class="trust-destroyer-item"><div class="trust-x">✕</div><p class="trust-destroyer-text">Controlas en exceso y no delegas</p></div>
-    <div class="trust-destroyer-item"><div class="trust-x">✕</div><p class="trust-destroyer-text">Favoreces a algunos por encima de otros sin criterio claro</p></div>
-    <div class="trust-destroyer-item"><div class="trust-x">✕</div><p class="trust-destroyer-text">Envías mensajes contradictorios entre lo que dices y haces</p></div>
-    <div class="trust-destroyer-item"><div class="trust-x">✕</div><p class="trust-destroyer-text">No reconoces el trabajo bien hecho del equipo</p></div>
-  </div>
-
-  <div class="btn-group reveal">
-    <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Ver material en Drive
-    </a>
-  </div>
-</section>
-
-<hr class="section-divider">
-
-<!-- HERRAMIENTA 5 -->
-<section class="section" id="herramienta-5" aria-labelledby="h5-title">
-  <div class="section-header reveal">
-    <p class="section-number">Herramienta 05</p>
-    <h2 class="section-title" id="h5-title">Acción y Compromiso</h2>
-    <p class="section-desc">El Mapa de Influencia es una herramienta visual estratégica que te permite identificar a los actores clave de tu entorno, analizar su nivel de poder y diseñar estrategias para movilizarlos hacia tus objetivos.</p>
-  </div>
-
-  <h3 class="reveal" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);margin-bottom:var(--space-2)">El Mapa de Influencia Estratégico</h3>
-  <p class="reveal" style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-6);max-width:60ch">Es una radiografía visual de tu entorno. Te permite ubicar a los actores clave de tus proyectos utilizando un sistema de círculos concéntricos y códigos visuales:</p>
-
-  <div class="cards-grid-2 reveal" style="margin-bottom:var(--space-8)">
-    <div class="card">
-      <p style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-primary);margin-bottom:var(--space-2)">Tamaño (Nivel de Poder)</p>
-      <p style="font-size:var(--text-sm);color:var(--color-text-muted)">A mayor poder de decisión o veto, más grande será el elemento en tu mapa.</p>
-    </div>
-    <div class="card">
-      <p style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-primary);margin-bottom:var(--space-2)">Color (Actitud)</p>
-      <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Verde = Aliado &middot; Amarillo = Neutro &middot; Rojo = Resistente</p>
-    </div>
-    <div class="card">
-      <p style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-primary);margin-bottom:var(--space-2)">Distancia (Cercanía Relacional)</p>
-      <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Qué tan cerca o lejos del centro, indicando nivel de confianza y comunicación.</p>
-    </div>
-  </div>
-
-  <!-- Influence Map CSS -->
-  <div class="reveal" style="margin:var(--space-8) 0">
-    <div class="influence-map" role="img" aria-label="Mapa de Influencia Estratégico interactivo">
-      <div class="map-ring ring-outer"></div>
-      <div class="map-ring ring-mid"></div>
-      <div class="map-ring ring-inner"></div>
-      <div class="map-center">Tú<br>Líder</div>
-      <!-- Aliados -->
-      <div class="map-actor actor-aliado" style="width:52px;height:52px;top:22%;left:60%;font-size:10px" title="Director de área - Aliado">Dir.
-        <span class="map-actor-label">Director</span>
-      </div>
-      <div class="map-actor actor-aliado" style="width:40px;height:40px;top:65%;left:35%;font-size:9px" title="Colega - Aliado">Col.
-        <span class="map-actor-label">Colega</span>
-      </div>
-      <!-- Neutros -->
-      <div class="map-actor actor-neutral" style="width:44px;height:44px;top:15%;left:30%;font-size:9px" title="Gerente - Neutro">Ger.
-        <span class="map-actor-label">Gerente</span>
-      </div>
-      <div class="map-actor actor-neutral" style="width:36px;height:36px;top:75%;left:65%;font-size:9px" title="Proveedor - Neutro">Prov.
-        <span class="map-actor-label">Proveedor</span>
-      </div>
-      <!-- Resistentes -->
-      <div class="map-actor actor-resistente" style="width:48px;height:48px;top:40%;left:82%;font-size:9px" title="Jefe Senior - Resistente">J.Sr.
-        <span class="map-actor-label">Jefe Sr.</span>
-      </div>
-      <div class="map-actor actor-resistente" style="width:34px;height:34px;top:82%;left:20%;font-size:9px" title="Stakeholder - Resistente">Stk.
-        <span class="map-actor-label">Stakeholder</span>
-      </div>
-    </div>
-    <div class="map-legend" aria-label="Leyenda del mapa">
-      <div class="legend-item"><div class="legend-dot" style="background:#2d7a4f"></div><span>Aliado</span></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#c8a000"></div><span>Neutro</span></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div><span>Resistente</span></div>
-    </div>
-    <p class="map-caption">Ejemplo ilustrativo &mdash; usa la plantilla de Canva para construir el tuyo</p>
-  </div>
-
-  <div class="canva-cta-block reveal">
-    <h3 class="canva-cta-title">Construye tu propio Mapa de Influencia</h3>
-    <p class="canva-cta-desc">Lienzo interactivo listo para usar. Edita los actores, colores y distancias según tu contexto real.</p>
-    <a href="https://www.canva.com/design/DAHMRwbpc3M/Yfhxxjh4HxWmx_3rtAqu5Q/edit?ui=e30" target="_blank" rel="noopener noreferrer" class="canva-cta">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Abrir Plantilla Editable en Canva
-    </a>
-    <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-3)">Lienzo del Mapa de Influencia Estratégico — listo para usar</p>
-  </div>
-
-  <h3 class="reveal" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);margin-top:var(--space-10);margin-bottom:var(--space-2)">¿Cómo gestionar el Mapa de Influencia?</h3>
-  <p class="reveal" style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);max-width:60ch">Construir el mapa es solo el primer paso. El valor real está en definir estrategias de acercamiento basadas en la <strong>Influencia Consciente</strong>, no en la manipulación.</p>
-
-  <div class="strategies-grid reveal">
-    <div class="strategy-card">
-      <p class="strategy-number">Estrategia 01</p>
-      <h4 class="strategy-title">Identifica sus necesidades</h4>
-      <p class="strategy-desc">Antes de pedir, entiende qué los motiva y qué necesitan de ti en esta relación.</p>
-    </div>
-    <div class="strategy-card">
-      <p class="strategy-number">Estrategia 02</p>
-      <h4 class="strategy-title">Reconoce sus capacidades</h4>
-      <p class="strategy-desc">Valora públicamente su experiencia o conocimiento técnico de forma genuina.</p>
-    </div>
-    <div class="strategy-card">
-      <p class="strategy-number">Estrategia 03</p>
-      <h4 class="strategy-title">Construye objetivos compartidos</h4>
-      <p class="strategy-desc">Busca el punto donde tu necesidad se alinea con el éxito de los otros actores.</p>
-    </div>
-    <div class="strategy-card">
-      <p class="strategy-number">Estrategia 04</p>
-      <h4 class="strategy-title">Genera corresponsabilidad</h4>
-      <p class="strategy-desc">Haz que se sientan parte de la solución, dueños del proceso, no solo ejecutores.</p>
-    </div>
-  </div>
-
-  <div class="btn-group reveal">
-    <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-      Ver material en Drive
-    </a>
-  </div>
-</section>
-
-<!-- COMPLETION -->
-<section class="completion" id="completion" aria-labelledby="completion-title">
-  <div class="completion-inner">
-    <div class="completion-badge">🌟</div>
-    <h2 class="completion-title" id="completion-title">¡Felicidades! Completaste las 5 Herramientas de Influencia Consciente</h2>
-    <p class="completion-text">Has explorado el camino completo desde la comprensión del liderazgo hasta la acción estratégica. Ahora tienes los recursos para liderar con mayor impacto, coherencia y presencia.</p>
-    <div class="btn-group" style="justify-content:center">
-      <a href="#inicio" class="btn btn-accent">Volver al inicio</a>
-      <a href="https://drive.google.com/drive/folders/1qWZk_-IXVV7l0H4ClAaGjw4m6HOjn-Rv" target="_blank" rel="noopener noreferrer" class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Carpeta Drive Completa
+    <h1>El Arte de la<br><em>Influencia Consciente</em></h1>
+    <p>El liderazgo no se impone, se legitima en la percepción de los demás. Explora 5 herramientas prácticas para movilizar decisiones, emociones y acciones en tu equipo.</p>
+    <div style="display:flex; gap: var(--space-4); flex-wrap: wrap; align-items: center;">
+      <a href="#seccion-1" class="btn btn-gold">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Comenzar la ruta
+      </a>
+      <a href="https://drive.google.com/file/d/12CG4-0UWkrfBJ_VbSMf9_Rex0zqMInwU/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="hero-podcast">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        🎙️ Podcast: Liderar con Influencia Consciente
       </a>
     </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Herramientas</span></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Videos</span></div>
+      <div class="stat"><span class="stat-num">2</span><span class="stat-label">Tests DISC</span></div>
+      <div class="stat"><span class="stat-num">1</span><span class="stat-label">Plantilla Canva</span></div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <svg width="32" height="32" viewBox="0 0 28 28" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <rect width="28" height="28" rx="6" fill="#2C5697"/>
-        <path d="M8 8h12v3H8zM8 13h8v3H8zM8 18h10v3H8z" fill="#F5A800"/>
-        <circle cx="20" cy="19.5" r="3" fill="#fff"/>
-      </svg>
-      <span style="font-family:var(--font-display);font-weight:700;color:var(--color-primary)">Pontificia Universidad Javeriana</span>
+<!-- ===== PROGRESS ===== -->
+<div class="progress-section" role="complementary" aria-label="Progreso de herramientas">
+  <div class="container">
+    <div class="progress-inner">
+      <span class="progress-label">Tu Ruta:</span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-steps">
+        <button class="progress-dot" data-step="1" aria-label="Herramienta 1" onclick="goTo('seccion-1')">1</button>
+        <button class="progress-dot" data-step="2" aria-label="Herramienta 2" onclick="goTo('seccion-2')">2</button>
+        <button class="progress-dot" data-step="3" aria-label="Herramienta 3" onclick="goTo('seccion-3')">3</button>
+        <button class="progress-dot" data-step="4" aria-label="Herramienta 4" onclick="goTo('seccion-4')">4</button>
+        <button class="progress-dot" data-step="5" aria-label="Herramienta 5" onclick="goTo('seccion-5')">5</button>
+      </div>
     </div>
-    <p class="footer-text">Caja de Herramientas Interactivas · Influencia Consciente<br>
-    Programa de Liderazgo · Material de uso institucional</p>
+  </div>
+</div>
+
+<!-- ===== TABS ===== -->
+<div class="tabs-section" role="navigation" aria-label="Secciones de la caja">
+  <div class="container">
+    <div class="tabs-inner">
+      <button class="tab-btn active" onclick="scrollToSection('seccion-1')"><span class="tab-icon">🧠</span> Comprensión del Liderazgo</button>
+      <button class="tab-btn" onclick="scrollToSection('seccion-2')"><span class="tab-icon">💡</span> Estilo de Pensamiento</button>
+      <button class="tab-btn" onclick="scrollToSection('seccion-3')"><span class="tab-icon">💬</span> Comunicación y Feedback</button>
+      <button class="tab-btn" onclick="scrollToSection('seccion-4')"><span class="tab-icon">🤝</span> Relación y Confianza</button>
+      <button class="tab-btn" onclick="scrollToSection('seccion-5')"><span class="tab-icon">🗺️</span> Acción y Compromiso</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main id="main-content">
+
+<!-- ======= HERRAMIENTA 1 ======= -->
+<section id="seccion-1" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Herramienta 01</div>
+      <h2 class="section-title"><strong>Comprensión</strong> del Liderazgo</h2>
+      <p class="section-lead">¿Qué es influir? La influencia no es autoridad formal ni jerarquía. Es tu capacidad de inspirar y movilizar a otros construida desde tu credibilidad, tu coherencia y tu relación con los otros.</p>
+    </div>
+
+    <div class="liderazgo-card reveal">
+      <div class="liderazgo-highlight">
+        <p>"Sin confianza, no hay influencia sostenible. El liderazgo que dura se construye desde dentro hacia afuera."</p>
+        <cite>— Caja de Herramientas · Influencia Consciente, Javeriana</cite>
+      </div>
+      <div class="liderazgo-body">
+        <div class="grid-2">
+          <div>
+            <h3>¿Qué es influir?</h3>
+            <p>La influencia no es el ejercicio del poder jerárquico. Es tu capacidad de inspirar y movilizar a otros, construida desde tu <strong>credibilidad</strong>, tu <strong>coherencia</strong> y tu <strong>relación con los demás</strong>. Un líder que entiende esto pasa del simple cumplimiento al compromiso real de su equipo.</p>
+            <a href="https://drive.google.com/drive/folders/1g6C39VFuqfRtDgwFfGc_C38Q5jpPF_p9?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: var(--space-4);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Ver material en Drive
+            </a>
+          </div>
+          <div>
+            <div class="video-section">
+              <div class="video-label">📹 Video introductorio</div>
+              <div class="video-embed">
+                <iframe src="https://www.youtube.com/embed/7HvYUlH4mkA" title="Liderazgo con Influencia Consciente" allowfullscreen loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= HERRAMIENTA 2 ======= -->
+<section id="seccion-2" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Herramienta 02</div>
+      <h2 class="section-title"><strong>Estilo</strong> de Pensamiento</h2>
+      <p class="section-lead">No puedes influir en otros sin autoconciencia. Tu cerebro y tu estilo impactan tu comunicación, tus decisiones y el clima del equipo. Reconocer tu estilo te permite entender tus fortalezas naturales y tus zonas de riesgo.</p>
+    </div>
+
+    <div class="pensamiento-grid reveal">
+      <div>
+        <div class="cerebro-card">
+          <p style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--jav-azul); margin-bottom: var(--space-4);">Los 4 cuadrantes del pensamiento (BZG)</p>
+          <div class="cerebro-visual">
+            <div class="cerebro-cuadrante cuad-fl">
+              <div class="cuad-label">Frontal Izquierdo</div>
+              <div class="cuad-name">Analítico</div>
+              <div class="cuad-desc">Hechos, datos, lógica, brevedad</div>
+            </div>
+            <div class="cerebro-cuadrante cuad-fd">
+              <div class="cuad-label">Frontal Derecho</div>
+              <div class="cuad-name">Creativo</div>
+              <div class="cuad-desc">Síntesis, innovación, visión global</div>
+            </div>
+            <div class="cerebro-cuadrante cuad-pl">
+              <div class="cuad-label">Posterior Izquierdo</div>
+              <div class="cuad-name">Secuencial</div>
+              <div class="cuad-desc">Orden, proceso, detalle, planificación</div>
+            </div>
+            <div class="cerebro-cuadrante cuad-pd">
+              <div class="cuad-label">Posterior Derecho</div>
+              <div class="cuad-name">Interpersonal</div>
+              <div class="cuad-desc">Empatía, conexión, equipo, intuición</div>
+            </div>
+          </div>
+          <p style="font-size: var(--text-xs); color: var(--color-muted); text-align: center; font-style: italic;">Modelo BZG Talent Solutions · Estilos de pensamiento</p>
+        </div>
+
+        <div class="material-links" style="margin-top: var(--space-5);">
+          <h4>Material de Drive</h4>
+          <ul class="material-list">
+            <li><a href="https://drive.google.com/file/d/1giMwn97GW7xnHt1ubDvg9j6r-olFuibI/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              BZG Talent Solutions – Presentación
+            </a></li>
+            <li><a href="https://drive.google.com/file/d/1UJA2vGMpugfMjd_zpdfibWD6LAF7LStE/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg>
+              Imagen: Estilos de pensamiento BZG
+            </a></li>
+            <li><a href="https://drive.google.com/file/d/1mQOXX606G_az24lUCnOKYHYEZPqLWKoH/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Influencia 1 – Documento
+            </a></li>
+            <li><a href="https://drive.google.com/file/d/1osPq7vhuUG2w6fWK83PAAZW6X3ZbuIjg/view?usp=sharing"_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Influencia 2 – Documento
+            </a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pensamiento-info">
+        <h3>Conoce tu estilo de pensamiento</h3>
+        <p>Guarda tu resultado y compártelo con tu equipo. Conocer los estilos de pensamiento de cada miembro transforma la forma en que se comunican, toman decisiones y generan acuerdos.</p>
+        <p>Realiza una de las siguientes pruebas gratuitas (análisis DISC o similar):</p>
+        <div class="test-links">
+          <a href="https://personality.co/es/personality-test" target="_blank" rel="noopener noreferrer" class="test-link-card">
+            <div class="test-link-icon" style="background: var(--jav-azul-pale);">🧪</div>
+            <div>
+              <h4>Personality.co — Test DISC</h4>
+              <p>Análisis completo de tu perfil de personalidad</p>
+            </div>
+            <svg class="test-link-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://davidblancoperez.com/test-disc-gratis/" target="_blank" rel="noopener noreferrer" class="test-link-card">
+            <div class="test-link-icon" style="background: var(--jav-amarillo-light);">📊</div>
+            <div>
+              <h4>Test DISC Gratis</h4>
+              <p>Versión rápida y gratuita del análisis DISC</p>
+            </div>
+            <svg class="test-link-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= HERRAMIENTA 3 ======= -->
+<section id="seccion-3" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Herramienta 03</div>
+      <h2 class="section-title"><strong>Comunicación</strong> y Feedback</h2>
+      <p class="section-lead">La influencia efectiva requiere adaptar tu mensaje al estilo del otro. Según los estilos de pensamiento, cada persona necesita un tipo diferente de comunicación para ser movilizada.</p>
+    </div>
+
+    <div class="video-section reveal" style="margin-bottom: var(--space-8);">
+      <div class="video-label">📹 Video · Negociación Difícil</div>
+      <div style="max-width: 680px;">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/VEbrO-sR19I" title="Cómo negociar en situaciones difíciles" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-3);">Los 4 tipos de Feedback</h3>
+      <p style="color: var(--color-muted); margin-bottom: var(--space-6); max-width: 680px; line-height: 1.7;">Utiliza los cuatro tipos de retroalimentación para guiar a tu equipo. Cada tipo tiene un propósito distinto y genera un efecto diferente en quien lo recibe.</p>
+      <div class="feedback-tipos">
+        <div class="feedback-card directivo">
+          <div class="feedback-card-label">Feedback Directivo</div>
+          <h3>Indica qué hacer</h3>
+          <p class="def">Señala a alguien exactamente lo que debe hacer, cuándo y cómo.</p>
+          <div class="ejemplos">
+            <div class="ejemplo">"Por favor, ajusta el informe según el nuevo lineamiento para que podamos procesarlo hoy mismo."</div>
+            <div class="ejemplo">"Necesito que priorices la revisión de las convocatorias antes del viernes a mediodía."</div>
+          </div>
+        </div>
+        <div class="feedback-card contingencia">
+          <div class="feedback-card-label">Feedback de Contingencia</div>
+          <h3>Da una consecuencia futura</h3>
+          <p class="def">Conecta las acciones presentes con resultados futuros concretos.</p>
+          <div class="ejemplos">
+            <div class="ejemplo">"Si logramos tener la firma del Rector lista para el miércoles, podremos desembolsar los fondos la próxima semana."</div>
+            <div class="ejemplo">"Si no enviamos el soporte de la transferencia hoy, perderemos la ventana de aplicación del proyecto."</div>
+          </div>
+        </div>
+        <div class="feedback-card atribucion">
+          <div class="feedback-card-label">Feedback de Atribución</div>
+          <h3>Describe la calidad de la acción</h3>
+          <p class="def">Reconoce características específicas de la persona en sus acciones.</p>
+          <div class="ejemplos">
+            <div class="ejemplo">"Tu capacidad analítica y nivel de detalle en la revisión de estos contratos fue fundamental durante la negociación."</div>
+            <div class="ejemplo">"Fuiste muy empático y asertivo al manejar el desacuerdo en la reunión de ayer."</div>
+          </div>
+        </div>
+        <div class="feedback-card impacto">
+          <div class="feedback-card-label">Feedback de Impacto</div>
+          <h3>Comunica el efecto en otros</h3>
+          <p class="def">Informa el efecto que las acciones tuvieron sobre personas u organización.</p>
+          <div class="ejemplos">
+            <div class="ejemplo">"Gracias a tu rapidez y compromiso, logramos que la transferencia se acelerara y pudiéramos firmar el Acuerdo."</div>
+            <div class="ejemplo">"Cuando comunicaste los cambios con tanta claridad, ayudaste a disminuir la ansiedad en el equipo."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video liderazgo y comunicación -->
+    <div class="reveal" style="margin-top: var(--space-8);">
+      <div class="video-label">📹 Video · Liderazgo y Comunicación</div>
+      <div style="max-width: 680px;">
+        <div class="video-embed">
+          <iframe src="https://drive.google.com/file/d/1xcVEzuI6kmY_aoiUJIpyKcGsjjAq1AaB/view?usp=sharing" title="Liderazgo y Comunicación" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+      <p style="font-size: var(--text-xs); color: var(--color-faint); margin-top: var(--space-2);">Material adicional: Archivo "Video Liderazgo y Comunicación" disponible en la carpeta Drive.</p>
+    </div>
+
+    <!-- Riesgos accordion -->
+    <div class="riesgos-section reveal" style="margin-top: var(--space-10);">
+      <div class="riesgos-header">
+        <h3>⚠️ Riesgos Comunes de la Comunicación de un Líder</h3>
+        <p>Expande cada riesgo para conocer cómo reconocerlo y evitarlo</p>
+      </div>
+      <div class="riesgo-item">
+        <button class="riesgo-toggle" onclick="toggleRiesgo(this)" aria-expanded="false">
+          <span>No adaptar el mensaje al estilo del interlocutor</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="riesgo-body">
+          <p>Un perfil Frontal Izquierdo necesita que seas breve y vayas a los hechos, mientras que un Posterior Derecho valora la empatía y la conexión interpersonal. Comunicar igual a todos reduce el impacto y la influencia. Identifica primero el estilo y luego adapta tu mensaje.</p>
+        </div>
+      </div>
+      <div class="riesgo-item">
+        <button class="riesgo-toggle" onclick="toggleRiesgo(this)" aria-expanded="false">
+          <span>Dar feedback sin contexto ni preparación</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="riesgo-body">
+          <p>El feedback improvisado tiende a ser vago o agresivo. Usa siempre uno de los cuatro tipos (directivo, contingencia, atribución o impacto) para estructurar tu mensaje. Sé específico: menciona el comportamiento, no la persona.</p>
+        </div>
+      </div>
+      <div class="riesgo-item">
+        <button class="riesgo-toggle" onclick="toggleRiesgo(this)" aria-expanded="false">
+          <span>Usar solo feedback directivo con todo el equipo</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="riesgo-body">
+          <p>El abuso del feedback directivo genera dependencia y baja autonomía. Alterna con feedback de impacto y atribución para construir confianza y reconocer capacidades. El equipo necesita saber qué hace bien, no solo qué corregir.</p>
+        </div>
+      </div>
+      <div class="riesgo-item">
+        <button class="riesgo-toggle" onclick="toggleRiesgo(this)" aria-expanded="false">
+          <span>Enviar mensajes contradictorios con tu comportamiento</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="riesgo-body">
+          <p>La credibilidad se construye en la coherencia entre lo que dices y lo que haces. Si proclamas valores de colaboración pero actúas en silos, el equipo percibirá la incoherencia y tu influencia caerá. Cuida especialmente tus acciones en momentos de presión.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= HERRAMIENTA 4 ======= -->
+<section id="seccion-4" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Herramienta 04</div>
+      <h2 class="section-title"><strong>Relación</strong> y Confianza</h2>
+      <p class="section-lead">Las personas siguen a líderes que generan seguridad, son coherentes y cumplen lo que dicen. La confianza se fortalece cuando escuchas genuinamente y reconoces tus errores.</p>
+    </div>
+
+    <div class="confianza-layout reveal">
+      <div>
+        <h3 style="font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-5);">Acciones cotidianas que construyen confianza</h3>
+        <div class="confianza-principios">
+          <div class="principio-card">
+            <div class="principio-num">01</div>
+            <div class="principio-content">
+              <h4>Escucha genuina</h4>
+              <p>Presta atención sin interrumpir. Haz preguntas que demuestren que entendiste lo que te dijeron antes de responder.</p>
+            </div>
+          </div>
+          <div class="principio-card">
+            <div class="principio-num">02</div>
+            <div class="principio-content">
+              <h4>Reconoce tus errores</h4>
+              <p>Admitir equivocaciones frente al equipo genera cercanía y demuestra seguridad personal. Nadie confía en quien siempre tiene la razón.</p>
+            </div>
+          </div>
+          <div class="principio-card">
+            <div class="principio-num">03</div>
+            <div class="principio-content">
+              <h4>Cumple lo que prometes</h4>
+              <p>La confianza se construye en la consistencia. Si dices que harás algo, hazlo. Los pequeños incumplimientos erosionan la credibilidad gradualmente.</p>
+            </div>
+          </div>
+          <div class="principio-card">
+            <div class="principio-num">04</div>
+            <div class="principio-content">
+              <h4>Evita el control excesivo y el favoritismo</h4>
+              <p>La microgestión y los favoritismos son los principales destructores de confianza en equipos. Genera autonomía y aplica criterios justos para todos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="confianza-right">
+        <div class="video-section" style="margin-bottom: var(--space-6);">
+          <div class="video-label">📹 Seguridad Psicológica en el Trabajo</div>
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/yesK1cSqbSs" title="Seguridad psicológica en el trabajo" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>
+        <div style="background: var(--jav-azul-pale); border-radius: var(--radius-xl); padding: var(--space-6); border: 1px solid rgba(44,86,151,0.15);">
+          <h3 style="font-size: var(--text-base); color: var(--jav-azul); font-family: var(--font-body); font-weight: 700; margin-bottom: var(--space-3);">La confianza se destruye cuando...</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: var(--space-3);">
+            <li style="display: flex; gap: var(--space-2); align-items: flex-start; font-size: var(--text-sm); color: var(--color-muted);">
+              <span style="color: #ef4444; font-size: 16px; flex-shrink:0;">✕</span> Controlas en exceso y no delegas
+            </li>
+            <li style="display: flex; gap: var(--space-2); align-items: flex-start; font-size: var(--text-sm); color: var(--color-muted);">
+              <span style="color: #ef4444; font-size: 16px; flex-shrink:0;">✕</span> Favoreces a algunos por encima de otros sin criterio claro
+            </li>
+            <li style="display: flex; gap: var(--space-2); align-items: flex-start; font-size: var(--text-sm); color: var(--color-muted);">
+              <span style="color: #ef4444; font-size: 16px; flex-shrink:0;">✕</span> Envías mensajes contradictorios entre lo que dices y haces
+            </li>
+            <li style="display: flex; gap: var(--space-2); align-items: flex-start; font-size: var(--text-sm); color: var(--color-muted);">
+              <span style="color: #ef4444; font-size: 16px; flex-shrink:0;">✕</span> No reconoces el trabajo bien hecho del equipo
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= HERRAMIENTA 5 ======= -->
+<section id="seccion-5" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Herramienta 05</div>
+      <h2 class="section-title"><strong>Acción</strong> y Compromiso</h2>
+      <p class="section-lead">El Mapa de Influencia es una herramienta visual estratégica que te permite identificar a los actores clave de tu entorno, analizar su nivel de poder y diseñar estrategias para movilizarlos hacia tus objetivos.</p>
+    </div>
+
+    <div class="mapa-container reveal">
+      <div class="grid-2" style="align-items: start;">
+        <div>
+          <h3 style="font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-4);">El Mapa de Influencia Estratégico</h3>
+          <p style="color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-4);">Es una radiografía visual de tu entorno. Te permite ubicar a los actores clave de tus proyectos utilizando un sistema de círculos concéntricos y códigos visuales:</p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-6);">
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+              <span style="font-size: 20px; flex-shrink:0;">📐</span>
+              <div><strong style="font-size: var(--text-sm); color: var(--jav-azul);">Tamaño (Nivel de Poder):</strong><br><span style="font-size: var(--text-sm); color: var(--color-muted);">A mayor poder de decisión o veto, más grande será el elemento en tu mapa.</span></div>
+            </div>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+              <span style="font-size: 20px; flex-shrink:0;">🎨</span>
+              <div><strong style="font-size: var(--text-sm); color: var(--jav-azul);">Color (Actitud):</strong><br><span style="font-size: var(--text-sm); color: var(--color-muted);"><span style="color:#22c55e; font-weight:700;">Verde = Aliado</span> · <span style="color:#f59e0b; font-weight:700;">Amarillo = Neutro</span> · <span style="color:#ef4444; font-weight:700;">Rojo = Resistente</span></span></div>
+            </div>
+            <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+              <span style="font-size: 20px; flex-shrink:0;">🎯</span>
+              <div><strong style="font-size: var(--text-sm); color: var(--jav-azul);">Distancia (Cercanía Relacional):</strong><br><span style="font-size: var(--text-sm); color: var(--color-muted);">Qué tan cerca o lejos del centro, indicando nivel de confianza y comunicación.</span></div>
+            </div>
+          </div>
+          <a href="https://www.canva.com/design/DAHMRwbpc3M/Yfhxxjh4HxWmx_3rtAqu5Q/edit?ui=e30" target="_blank" rel="noopener noreferrer" class="canva-cta">
+            <span class="canva-cta-icon">🎨</span>
+            <div class="canva-cta-text">
+              <h4>Abrir Plantilla Editable en Canva</h4>
+              <p>Lienzo del Mapa de Influencia Estratégico — listo para usar</p>
+            </div>
+            <svg class="canva-cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div>
+          <div class="mapa-visual">
+            <div class="mapa-svg-wrapper">
+              <div class="circulo c3"></div>
+              <div class="circulo c2"></div>
+              <div class="circulo c1">
+                <div class="yo-label">TÚ<br>★</div>
+              </div>
+              <!-- Actores aliados (cerca) -->
+              <div class="actor actor-aliado" style="top: 30%; left: 50%; transform: translate(-50%,-50%); width:36px; height:36px;">A</div>
+              <!-- Actores neutros (medio) -->
+              <div class="actor actor-neutro" style="top: 18%; left: 68%; transform: translate(-50%,-50%); width:30px; height:30px;">N</div>
+              <div class="actor actor-neutro" style="top: 50%; left: 82%; transform: translate(-50%,-50%); width:28px; height:28px;">N</div>
+              <!-- Actores resistentes (lejos) -->
+              <div class="actor actor-resistente" style="top: 78%; left: 25%; transform: translate(-50%,-50%); width:38px; height:38px;">R</div>
+              <div class="actor actor-aliado" style="top: 70%; left: 68%; transform: translate(-50%,-50%); width:26px; height:26px;">A</div>
+              <!-- Eje cruceta -->
+              <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:210px; height:1px; background: rgba(44,86,151,0.15); z-index:0;"></div>
+              <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:1px; height:210px; background: rgba(44,86,151,0.15); z-index:0;"></div>
+            </div>
+          </div>
+          <div class="mapa-leyenda">
+            <div class="leyenda-item"><div class="leyenda-dot" style="background:#22c55e;"></div> Aliado</div>
+            <div class="leyenda-item"><div class="leyenda-dot" style="background:#f59e0b;"></div> Neutro</div>
+            <div class="leyenda-item"><div class="leyenda-dot" style="background:#ef4444;"></div> Resistente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--space-10);" class="reveal">
+      <h3 style="font-size: var(--text-lg); color: var(--jav-azul); margin-bottom: var(--space-3);">¿Cómo gestionar el Mapa de Influencia?</h3>
+      <p style="color: var(--color-muted); max-width: 680px; line-height: 1.7; margin-bottom: var(--space-6);">Construir el mapa es solo el primer paso. El valor real está en definir estrategias de acercamiento basadas en la <strong>Influencia Consciente</strong>, no en la manipulación.</p>
+      <div class="estrategias-grid">
+        <div class="estrategia-item">
+          <span class="estrategia-emoji">🔍</span>
+          <h4>Identifica sus necesidades</h4>
+          <p>Antes de pedir, entiende qué los motiva y qué necesitan de ti en esta relación.</p>
+        </div>
+        <div class="estrategia-item">
+          <span class="estrategia-emoji">⭐</span>
+          <h4>Reconoce sus capacidades</h4>
+          <p>Valora públicamente su experiencia o conocimiento técnico de forma genuina.</p>
+        </div>
+        <div class="estrategia-item">
+          <span class="estrategia-emoji">🎯</span>
+          <h4>Construye objetivos compartidos</h4>
+          <p>Busca el punto donde tu necesidad se alinea con el éxito de los otros actores.</p>
+        </div>
+        <div class="estrategia-item">
+          <span class="estrategia-emoji">🔗</span>
+          <h4>Genera corresponsabilidad</h4>
+          <p>Haz que se sientan parte de la solución, dueños del proceso, no solo ejecutores.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= CIERRE ======= -->
+<section id="seccion-cierre">
+  <div class="container">
+    <div class="cierre-content reveal">
+      <h2>¡Felicidades! Completaste las<br><em>5 Herramientas</em> de Influencia Consciente</h2>
+      <p>Has explorado el camino completo desde la comprensión del liderazgo hasta la acción estratégica. Ahora tienes los recursos para liderar con mayor impacto, coherencia y presencia.</p>
+      <div class="herramientas-recap">
+        <div class="recap-badge"><span>01</span> Comprensión del Liderazgo</div>
+        <div class="recap-badge"><span>02</span> Estilo de Pensamiento</div>
+        <div class="recap-badge"><span>03</span> Comunicación y Feedback</div>
+        <div class="recap-badge"><span>04</span> Relación y Confianza</div>
+        <div class="recap-badge"><span>05</span> Acción y Compromiso</div>
+      </div>
+      <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+        <a href="https://drive.google.com/drive/folders/1g6C39VFuqfRtDgwFfGc_C38Q5jpPF_p9?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Ir a la Carpeta Drive
+        </a>
+        <a href="#seccion-1" class="btn btn-outline-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.4"/></svg>
+          Recorrer de nuevo
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">Pontificia Universidad Javeriana</div>
+      <p>Caja de Herramientas · Serie Influencia Consciente · Programa de Liderazgo</p>
+      <p style="margin-top: var(--space-1); opacity: 0.55;">El material enlazado pertenece a la carpeta "Caja de Herramientas Interactivas Consciente" en Google Drive. Uso exclusivo institucional.</p>
+    </div>
   </div>
 </footer>
 
+<!-- ===== SCRIPTS ===== -->
 <script>
-// Theme toggle
-(function(){
-  const t=document.querySelector('[data-theme-toggle]');
-  const r=document.documentElement;
-  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-  r.setAttribute('data-theme',d);
-  t&&t.addEventListener('click',()=>{
-    d=d==='dark'?'light':'dark';
-    r.setAttribute('data-theme',d);
-    t.setAttribute('aria-label','Cambiar a modo '+(d==='dark'?'claro':'oscuro'));
-    t.innerHTML=d==='dark'
-      ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-      :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-  });
-})();
-
-// Scroll reveal
-const revealObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target);}
-  });
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
-
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    const item=this.closest('.accordion-item');
-    const isOpen=item.classList.contains('open');
-    document.querySelectorAll('.accordion-item.open').forEach(i=>{
-      i.classList.remove('open');
-      i.querySelector('.accordion-header').setAttribute('aria-expanded','false');
-    });
-    if(!isOpen){
-      item.classList.add('open');
-      this.setAttribute('aria-expanded','true');
-    }
-  });
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const mainNav = document.getElementById('main-nav');
+hamburger.addEventListener('click', () => {
+  const isOpen = mainNav.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded', isOpen);
 });
+mainNav.querySelectorAll('.nav-link').forEach(l => {
+  l.addEventListener('click', () => { mainNav.classList.remove('open'); hamburger.setAttribute('aria-expanded', false); });
+});
+
+// Scroll to section
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+function goTo(id) { scrollToSection(id); }
 
 // Active nav + tabs on scroll
-const sections=document.querySelectorAll('section[id]');
-const navLinks=document.querySelectorAll('.nav-link');
-const tabBtns=document.querySelectorAll('.tab-btn');
+const sections = ['seccion-intro','seccion-1','seccion-2','seccion-3','seccion-4','seccion-5'];
+const navLinks = document.querySelectorAll('.nav-link[data-section]');
+const tabBtns  = document.querySelectorAll('.tab-btn');
 
-const sectionObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const id=e.target.id;
-      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
-      tabBtns.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
-    }
+function updateActive() {
+  let current = 'seccion-intro';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 140) current = id;
   });
-},{rootMargin:'-40% 0px -50% 0px'});
-sections.forEach(s=>sectionObserver.observe(s));
+  navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === current));
+  const idx = sections.indexOf(current) - 1;
+  tabBtns.forEach((b,i) => b.classList.toggle('active', i === idx));
 
-// Tab click
-tabBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>scrollToSection(btn.dataset.tab));
-});
-
-// Scroll progress
-window.addEventListener('scroll',()=>{
-  const sections=['herramienta-1','herramienta-2','herramienta-3','herramienta-4','herramienta-5'];
-  const scrollTop=window.scrollY;
-  const docHeight=document.documentElement.scrollHeight-window.innerHeight;
-  const rawPct=(scrollTop/docHeight)*100;
-  document.getElementById('progress-fill').style.width=Math.min(rawPct,100)+'%';
-
-  // progress dots
-  sections.forEach((id,i)=>{
-    const el=document.getElementById(id);
-    if(!el) return;
-    const rect=el.getBoundingClientRect();
-    document.querySelectorAll('.progress-dot')[i]?.classList.toggle('active',rect.top<=200&&rect.bottom>0);
+  // Progress
+  const step = Math.max(0, sections.indexOf(current) - 1);
+  document.querySelectorAll('.progress-dot').forEach((d,i) => {
+    d.classList.toggle('done',   i < step);
+    d.classList.toggle('active', i === step);
   });
-},{ passive:true });
+  const pct = step <= 0 ? 0 : (step / 5) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+updateActive();
 
-function scrollToSection(id){
-  const el=document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+// Accordions
+function toggleRiesgo(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !expanded);
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open', !expanded);
 }
 
-// Reset progress on tab switch
-document.querySelectorAll('.tab-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.getElementById('progress-fill').style.width='0%';
-    setTimeout(()=>document.getElementById('progress-fill').style.width='0%',300);
-  });
-});
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+
+// Initial progress-fill animation
+setTimeout(() => { document.getElementById('progress-fill').style.width = '0%'; }, 300);
 </script>
 
 </body>
