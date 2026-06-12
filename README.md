@@ -3,6 +3,8 @@
 > **Pontificia Universidad Javeriana** · Programa de Liderazgo  
 > Serie: *El Arte de la Influencia Consciente*
 
+> **Demo en vivo:** (https://juandalfonso.github.io/caja-de-herramientas/)
+
 ---
 
 ## ¿Qué es esta Caja de Herramientas?
